@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_flutter_healthier/components/MyButton.dart';
 import 'package:mobile_flutter_healthier/components/MyTextField.dart';
@@ -6,14 +7,68 @@ import 'package:mobile_flutter_healthier/components/SquareTile.dart';
 // rgb(40, 40, 40) - Grey background
 // rgb(1, 174, 92) - Main theme green
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
-  void singInUser() {
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
 
+class _LoginScreenState extends State<LoginScreen> {
+  void singInUser() async{
+    // Loading circle
+    showDialog(context: context, builder: (context) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    },);
+
+    // Try sing in
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text
+      );
+      Navigator.pop(context);
+    } on FirebaseAuthException catch(e) {
+
+      Navigator.pop(context);
+      // Wrong mail
+      if(e.code == 'user-not-found') {
+        wrongEmailMessage();
+      }
+
+      // Wrong password
+      else if(e.code == 'wrong-password') {
+        wrongPasswordMessage();
+      }
+    }
   }
 
-  final usernameController = TextEditingController();
+  void wrongEmailMessage() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            title: Text("Zły email"),
+          );
+        }
+    );
+  }
+
+  void wrongPasswordMessage() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            title: Text("Złe hasło"),
+          );
+        }
+    );
+  }
+
+  final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
 
   @override
@@ -31,11 +86,11 @@ class LoginScreen extends StatelessWidget {
                 height: 200,
                 image: AssetImage('assets/GreenLogo.png'),
               ),
-              
+
               const SizedBox(height: 20),
               MyTextField(
-                controller: usernameController,
-                hintText: 'Nazwa użytkownika',
+                controller: emailController,
+                hintText: 'Email',
                 obscureText: false,
               ),
 
@@ -101,15 +156,13 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   SquareTile(imagePath: "assets/google.png"),
-
                   SizedBox(width: 30),
-
                   SquareTile(imagePath: "assets/apple.png"),
                 ],
               ),
 
               const SizedBox(height: 50),
-              
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [

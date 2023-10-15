@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "874054237583",
+    "project_id": "healthier-415c8",
+    "storage_bucket": "healthier-415c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874054237583:android:c092e3e8121bdeda611ffa",
+        "android_client_info": {
+          "package_name": "com.example.mobile_flutter_healthier"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1ZIme-ccul61mt9Biq5NJ4H4DEEaUJGY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
