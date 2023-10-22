@@ -51,7 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             title: Center(
               child: Text(
                 message,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
             ),
           );

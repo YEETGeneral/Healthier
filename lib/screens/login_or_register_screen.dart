@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:mobile_flutter_healthier/screens/login_screen.dart';
 import 'package:mobile_flutter_healthier/screens/register_screen.dart';
 
-class LogOrRegisterPage extends StatefulWidget {
-  const LogOrRegisterPage({Key? key}) : super(key: key);
+class LogOrRegister extends StatefulWidget {
+  const LogOrRegister({Key? key}) : super(key: key);
 
   @override
-  State<LogOrRegisterPage> createState() => _LogOrRegisterPageState();
+  State<LogOrRegister> createState() => _LogOrRegisterState();
 }
 
-class _LogOrRegisterPageState extends State<LogOrRegisterPage> {
+class _LogOrRegisterState extends State<LogOrRegister> {
   bool showLoginPage = true;
 
   void togglePages() {

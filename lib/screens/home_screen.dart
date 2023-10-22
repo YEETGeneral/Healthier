@@ -17,14 +17,14 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: signUserOut,
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
           ),
         ],
       ),
       body: Center(
         child: Text(
-          "Zalogowano jako "+user.email!,
-          style: TextStyle(
+          "Zalogowano jako ${user.email!}",
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),

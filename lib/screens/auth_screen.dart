@@ -18,7 +18,7 @@ class AuthScreen extends StatelessWidget {
           if(snapshot.hasData) {
             return HomeScreen();
           } else {
-            return LogOrRegisterPage();
+            return LogOrRegister();
           }
         },
       ),

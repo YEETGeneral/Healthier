@@ -5,6 +5,8 @@ import 'package:mobile_flutter_healthier/components/MyTextField.dart';
 import 'package:mobile_flutter_healthier/components/SquareTile.dart';
 import 'package:mobile_flutter_healthier/services/auth_services.dart';
 
+import 'forgot_password_screen.dart';
+
 // rgb(40, 40, 40) - Grey background
 // rgb(1, 174, 92) - Main theme green
 
@@ -49,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
             title: Center(
               child: Text(
                 message,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
             ),
           );
@@ -92,15 +94,27 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: true,
                 ),
 
-                const SizedBox(height: 10),
+                const SizedBox(height: 5),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 5, 25.0, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      Text(
-                        "Zapomniałem hasła",
-                        style: TextStyle(color: Colors.white60, fontSize: 16),
+                    children: [
+                      GestureDetector(
+                        onTap: () => {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return ForgotPasswordPage();
+                          }))
+                        },
+                        child: const Text(
+                          "Zapomniałem hasła",
+                          style: TextStyle(
+                              color: Color.fromRGBO(146, 146, 146, 0.8),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -151,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       imagePath: "assets/google.png",
                       onTap: () => AuthService().signInWithGoogle(),
                     ),
-                    SizedBox(width: 30),
+                    const SizedBox(width: 30),
                     SquareTile(
                       imagePath: "assets/apple.png",
                       onTap: () {},
