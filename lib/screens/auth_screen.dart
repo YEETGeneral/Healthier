@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:mobile_flutter_healthier/screens/home_screen.dart';
 import 'package:mobile_flutter_healthier/screens/login_screen.dart';
 
+import 'login_or_register_screen.dart';
+
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key}) : super(key: key);
 
@@ -16,7 +18,7 @@ class AuthScreen extends StatelessWidget {
           if(snapshot.hasData) {
             return HomeScreen();
           } else {
-            return LoginScreen();
+            return LogOrRegisterPage();
           }
         },
       ),

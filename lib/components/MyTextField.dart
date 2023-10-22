@@ -19,7 +19,7 @@ class MyTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         obscureText: obscureText,
-        style: TextStyle(color: Colors.white60, fontSize: 20),
+        style: const TextStyle(color: Colors.white60, fontSize: 20),
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Color.fromRGBO(1, 174, 92, 1), width: 1.5)
@@ -30,7 +30,7 @@ class MyTextField extends StatelessWidget {
           fillColor: const Color.fromRGBO(1, 174, 92, 0.2),
           filled: true,
           hintText: hintText,
-          hintStyle: TextStyle(color: Colors.white54),
+          hintStyle: const TextStyle(color: Colors.white54),
 
         ),
       ),

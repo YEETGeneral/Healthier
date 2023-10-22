@@ -3,21 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:mobile_flutter_healthier/components/MyButton.dart';
 import 'package:mobile_flutter_healthier/components/MyTextField.dart';
 import 'package:mobile_flutter_healthier/components/SquareTile.dart';
-import 'package:mobile_flutter_healthier/services/auth_services.dart';
+
+import '../services/auth_services.dart';
 
 // rgb(40, 40, 40) - Grey background
 // rgb(1, 174, 92) - Main theme green
 
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
   final Function()? onTap;
-  const LoginScreen({super.key, required this.onTap});
+  const RegisterScreen({super.key, required this.onTap});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  void singInUser() async{
+class _RegisterScreenState extends State<RegisterScreen> {
+  void singUserUp() async{
     // Loading circle
     showDialog(context: context, builder: (context) {
       return const Center(
@@ -25,17 +26,18 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     },);
 
-    // Try sing in
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text
-      );
+      if (passwordController.text == confirmPasswordController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: emailController.text,
+            password: passwordController.text
+        );
+      } else {
+        errorMessage("Hasła nie są takie same");
+      }
       Navigator.pop(context);
     } on FirebaseAuthException catch(e) {
-
       Navigator.pop(context);
-
       errorMessage(e.code);
     }
   }
@@ -58,8 +60,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -71,21 +73,21 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 10),
+                const SizedBox(height: 5),
                 const Image(
                   width: 200,
                   height: 200,
                   image: AssetImage('assets/GreenLogo.png'),
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
                 MyTextField(
                   controller: emailController,
                   hintText: 'Email',
                   obscureText: false,
                 ),
 
-                const SizedBox(height: 15),
+                const SizedBox(height: 10),
                 MyTextField(
                   controller: passwordController,
                   hintText: 'Hasło',
@@ -93,26 +95,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
 
                 const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 5, 25.0, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      Text(
-                        "Zapomniałem hasła",
-                        style: TextStyle(color: Colors.white60, fontSize: 16),
-                      ),
-                    ],
-                  ),
+                MyTextField(
+                  controller: confirmPasswordController,
+                  hintText: 'Powtórz hasło',
+                  obscureText: true,
                 ),
 
                 const SizedBox(height: 30),
                 MyButton(
-                  message: "Zaloguj",
-                  onTap: singInUser,
+                  message: "Zarejestruj",
+                  onTap: singUserUp,
                 ),
 
-                const SizedBox(height: 50),
+                const SizedBox(height: 35),
                 Row(
                   children: const [
                     Expanded(
@@ -127,8 +122,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         "Albo użyj",
                         style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16
+                            color: Colors.grey,
+                            fontSize: 16
                         ),
                       ),
                     ),
@@ -142,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
 
-                const SizedBox(height: 50),
+                const SizedBox(height: 35),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -151,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       imagePath: "assets/google.png",
                       onTap: () => AuthService().signInWithGoogle(),
                     ),
-                    SizedBox(width: 30),
+                    const SizedBox(width: 30),
                     SquareTile(
                       imagePath: "assets/apple.png",
                       onTap: () {},
@@ -159,13 +154,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
 
-                const SizedBox(height: 50),
+                const SizedBox(height: 35),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "Nie masz konta?",
+                      "Masz już konto?",
                       style: TextStyle(
                         color: Colors.white60,
                         fontWeight: FontWeight.bold,
@@ -175,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     GestureDetector(
                       onTap: widget.onTap,
                       child: const Text(
-                        "Załóż je teraz!",
+                        "Zaloguj się teraz!",
                         style: TextStyle(
                           color: Color.fromRGBO(70, 70, 230, 1),
                           fontWeight: FontWeight.bold,
@@ -184,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-            ],),
+              ],),
           ),
         ),
       ),
