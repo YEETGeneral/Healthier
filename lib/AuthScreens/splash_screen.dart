@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mobile_flutter_healthier/screens/auth_screen.dart';
-import 'package:mobile_flutter_healthier/screens/home_screen.dart';
-import 'package:mobile_flutter_healthier/screens/login_screen.dart';
+import 'package:mobile_flutter_healthier/AuthScreens/auth.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

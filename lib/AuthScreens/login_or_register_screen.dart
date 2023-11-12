@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_flutter_healthier/screens/login_screen.dart';
-import 'package:mobile_flutter_healthier/screens/register_screen.dart';
+import 'package:mobile_flutter_healthier/AuthScreens/login_screen.dart';
+import 'package:mobile_flutter_healthier/AuthScreens/register_screen.dart';
 
 class LogOrRegister extends StatefulWidget {
   const LogOrRegister({Key? key}) : super(key: key);
